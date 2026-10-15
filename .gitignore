@@ -34,3 +34,18 @@ build/
 
 __pycache__
 
+releases/gerber_view_*/
+releases/*.gbr
+releases/*.gbl
+releases/*.gtl
+releases/*.gto
+releases/*.gbo
+releases/*.gts
+releases/*.gbs
+releases/*.gtp
+releases/*.gbp
+releases/*.gm1
+releases/*.drl
+releases/*.gbrjob
+releases/*.gta
+releases/*.gba
