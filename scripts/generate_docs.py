@@ -34,6 +34,9 @@ def parse_kicad_sch(filepath):
     instances_text = instances_match.group(1)
 
     # Парсим каждый instance
+    # NOTE: multi-unit components (e.g. UMH3N in SOT-363 with unit 1 + unit 2)
+    # appear as separate entries with the same Reference. Deduplicate by ref.
+    seen_refs = set()
     components = []
     blocks = re.finditer(
         r'\(path\s+"([^"]+)"\s*\n((?:\s*\([^)]+\)[^\n]*\n?)*)',
@@ -56,6 +59,11 @@ def parse_kicad_sch(filepath):
 
         if ref.startswith("#"):
             continue
+
+        # Deduplicate: skip if we already have this ref
+        if ref in seen_refs:
+            continue
+        seen_refs.add(ref)
 
         components.append({
             "ref": ref,
